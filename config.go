@@ -6,13 +6,13 @@ import (
 	"sync"
 )
 
-var instance interface{}
+var instance *interface{}
 var once sync.Once
 
-func GetConfig(config interface{}, configPath string) interface{} {
+func GetConfig(config interface{}, configPath string) *interface{} {
 	once.Do(func() {
 		log.Println("Reading config")
-		instance = config
+		instance = &config
 
 		if err := cleanenv.ReadConfig(configPath, instance); err != nil {
 			var helpText = "Error while reading config"
